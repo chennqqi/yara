@@ -127,6 +127,18 @@ AC_ARG_ENABLE([magic],
     CFLAGS="$CFLAGS -DMAGIC_MODULE"
     PC_LIBS_PRIVATE="$PC_LIBS_PRIVATE -lmagic"
   fi])
+  
+AC_ARG_ENABLE([ssdeep],
+  [AS_HELP_STRING([--enable-ssdeep], [enable ssdeep module])],
+  [if test x$enableval = xyes; then
+    build_ssdeep_module=true
+    AC_CHECK_HEADERS([fuzzy.h],,
+      AC_MSG_ERROR([please install libfuzzy library]))
+    AC_CHECK_LIB(fuzzy, edit_distn,,
+      AC_MSG_ERROR([please install libfuzzy library]))
+    CFLAGS="$CFLAGS -DSSDEEP_MODULE"
+    PC_LIBS_PRIVATE="$PC_LIBS_PRIVATE -lfuzzy"
+  fi])  
 
 AC_ARG_ENABLE([dotnet],
   [AS_HELP_STRING([--enable-dotnet], [enable dotnet module])],
@@ -282,6 +294,7 @@ AM_CONDITIONAL([OPTIMIZATION], [test x$optimization = xtrue])
 AM_CONDITIONAL([ADDRESS_SANITIZER], [test x$address_sanitizer = xtrue])
 AM_CONDITIONAL([CUCKOO_MODULE], [test x$build_cuckoo_module = xtrue])
 AM_CONDITIONAL([MAGIC_MODULE], [test x$build_magic_module = xtrue])
+AM_CONDITIONAL([SSDEEP_MODULE], [test x$build_ssdeep_module = xtrue])
 AM_CONDITIONAL([HASH_MODULE], [test x$build_hash_module = xtrue])
 AM_CONDITIONAL([DOTNET_MODULE], [test x$build_dotnet_module = xtrue])
 AM_CONDITIONAL([MACHO_MODULE], [test x$build_macho_module = xtrue])

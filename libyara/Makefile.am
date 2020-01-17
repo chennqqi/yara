@@ -32,6 +32,10 @@ if DEX_MODULE
 MODULES += modules/dex.c
 endif
 
+if SSDEEP_MODULE
+MODULES += modules/ssdeep.c
+endif
+
 #
 # Add your modules here:
 #
