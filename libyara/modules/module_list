@@ -28,6 +28,10 @@ MODULE(macho)
 MODULE(dex)
 #endif
 
+#ifdef PB_TESTS_MODULE
+MODULE(pb_tests)
+#endif
+
 #ifdef SSDEEP_MODULE
 MODULE(ssdeep)
 #endif

@@ -24,6 +24,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E236CE39-D8F3-4DB6-985C-F2794FF17746}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -235,18 +236,18 @@
     <ClCompile Include="..\..\..\libyara\libyara.c" />
     <ClCompile Include="..\..\..\libyara\mem.c" />
     <ClCompile Include="..\..\..\libyara\modules.c" />
-    <ClCompile Include="..\..\..\libyara\modules\cuckoo.c" />
-    <ClCompile Include="..\..\..\libyara\modules\dex.c" />
-    <ClCompile Include="..\..\..\libyara\modules\dotnet.c" />
-    <ClCompile Include="..\..\..\libyara\modules\elf.c" />
-    <ClCompile Include="..\..\..\libyara\modules\hash.c" />
-    <ClCompile Include="..\..\..\libyara\modules\math.c" />
-    <ClCompile Include="..\..\..\libyara\modules\macho.c" />
-    <ClCompile Include="..\..\..\libyara\modules\pe.c" />
-    <ClCompile Include="..\..\..\libyara\modules\pe_utils.c" />
-    <ClCompile Include="..\..\..\libyara\modules\ssdeep.c" />    
-    <ClCompile Include="..\..\..\libyara\modules\tests.c" />
-    <ClCompile Include="..\..\..\libyara\modules\time.c" />
+    <ClCompile Include="..\..\..\libyara\modules\cuckoo\cuckoo.c" />
+    <ClCompile Include="..\..\..\libyara\modules\dex\dex.c" />
+    <ClCompile Include="..\..\..\libyara\modules\ssdeep\ssdeep.c" />
+    <ClCompile Include="..\..\..\libyara\modules\dotnet\dotnet.c" />
+    <ClCompile Include="..\..\..\libyara\modules\elf\elf.c" />
+    <ClCompile Include="..\..\..\libyara\modules\hash\hash.c" />
+    <ClCompile Include="..\..\..\libyara\modules\math\math.c" />
+    <ClCompile Include="..\..\..\libyara\modules\macho\macho.c" />
+    <ClCompile Include="..\..\..\libyara\modules\pe\pe.c" />
+    <ClCompile Include="..\..\..\libyara\modules\pe\pe_utils.c" />
+    <ClCompile Include="..\..\..\libyara\modules\tests\tests.c" />
+    <ClCompile Include="..\..\..\libyara\modules\time\time.c" />
     <ClCompile Include="..\..\..\libyara\object.c" />
     <ClCompile Include="..\..\..\libyara\parser.c" />
     <ClCompile Include="..\..\..\libyara\proc.c" />

@@ -173,8 +173,8 @@ YR_API int yr_compiler_create(
   new_compiler->current_line = 0;
   new_compiler->file_name_stack_ptr = 0;
   new_compiler->fixup_stack_head = NULL;
-  new_compiler->loop_depth = 0;
-  new_compiler->loop_for_of_mem_offset = -1;
+  new_compiler->loop_index = -1;
+  new_compiler->loop_for_of_var_index = -1;
   new_compiler->compiled_rules_arena = NULL;
   new_compiler->namespaces_count = 0;
   new_compiler->current_rule = NULL;
@@ -470,6 +470,19 @@ void _yr_compiler_pop_file_name(
     yr_free(compiler->file_name_stack[compiler->file_name_stack_ptr]);
     compiler->file_name_stack[compiler->file_name_stack_ptr] = NULL;
   }
+}
+
+
+int _yr_compiler_get_var_frame(
+    YR_COMPILER* compiler)
+{
+  int i, result = 0;
+
+  for (i = 0; i < compiler->loop_index; i++)
+     result += compiler->loop[i].vars_count +
+               compiler->loop[i].vars_internal_count;
+
+  return result;
 }
 
 
@@ -869,7 +882,7 @@ YR_API int yr_compiler_get_rules(
   return ERROR_SUCCESS;
 }
 
-int _yr_compiler_define_variable(
+static int _yr_compiler_define_variable(
     YR_COMPILER* compiler,
     YR_EXTERNAL_VARIABLE* external)
 {
@@ -930,11 +943,13 @@ int _yr_compiler_define_variable(
       external,
       &object));
 
-  FAIL_ON_ERROR(yr_hash_table_add(
+  FAIL_ON_ERROR_WITH_CLEANUP(yr_hash_table_add(
       compiler->objects_table,
       external->identifier,
       NULL,
-      (void*) object));
+      (void*) object),
+      // cleanup
+      yr_object_destroy(object));
 
   return ERROR_SUCCESS;
 }

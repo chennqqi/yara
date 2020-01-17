@@ -33,8 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 int sized_string_cmp(
-  SIZED_STRING* s1,
-  SIZED_STRING* s2)
+    SIZED_STRING* s1,
+    SIZED_STRING* s2)
 {
   size_t i = 0;
 
@@ -71,6 +71,26 @@ SIZED_STRING* sized_string_dup(
   result->flags = s->flags;
 
   strncpy(result->c_string, s->c_string, s->length + 1);
+
+  return result;
+}
+
+
+SIZED_STRING* sized_string_new(
+    const char* s)
+{
+  SIZED_STRING* result;
+
+  int length = strlen(s);
+
+  result = (SIZED_STRING*) yr_malloc(sizeof(SIZED_STRING) + length);
+
+  result->length = length;
+  result->flags = 0;
+
+  strncpy(result->c_string, s, length);
+
+  result->c_string[length] = '\0';
 
   return result;
 }
